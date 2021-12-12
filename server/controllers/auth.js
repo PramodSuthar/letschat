@@ -1,11 +1,13 @@
 const { connect } = require('getstream');
 const bcrypt = require('bcrypt');
-const StreamChat = require('stream-chat');
+const StreamChat = require('stream-chat').StreamChat;
 const crypto = require('crypto');
+
+require('dotenv').config();
 
 const api_key = process.env.STREAM_API_KEY;
 const api_secret = process.env.STREAM_API_SECRET;
-const app_id = process.env.STREAM_API_ID;
+const app_id = process.env.STREAM_APP_ID;
 
 const signup = async (req, res) => {
     try {
@@ -45,7 +47,7 @@ const login = async (req, res) => {
         if (success) {
             res.status(200).json({ token, fullName: users[0].fullName, username, userId: users[0].id });
         } else {
-            res.status(500).json({ message: 'Incorrect password' })
+            res.status(500).json({ message: 'Incorrect password' });
         }
     } catch (error) {
         ads
